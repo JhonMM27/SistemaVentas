@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pagos', function (Blueprint $table) {
-            $table->id();
+            $table->smallIncrements('id');
+            $table->string('metodo_pago');
+            $table->decimal('monto', 10, 2);
+
+            $table->unsignedSmallInteger('ventas_id');
+            $table->foreign('ventas_id')->references('id')->on('ventas')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
