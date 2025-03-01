@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriaController extends Controller
 {
@@ -12,6 +14,14 @@ class CategoriaController extends Controller
      */
     public function index(Request $request)
     {
+        if (Auth::user()->role === 'Vendedor') {
+            return redirect()->back()->with('error', 'Acceso denegado.');        }
+    
+        // $categorias = Categoria::all();
+        // return view('categorias.index', compact('categorias'));
+
+
+
         $texto = $request->get('texto');
 
         $registros = Categoria::where('nombre','LIKE','%'.$texto.'%')->orWhere('id','LIKE','%'.$texto.'%')->orderBy('id','desc')->paginate(10);

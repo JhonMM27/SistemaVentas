@@ -12,7 +12,7 @@ class ReporteController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**

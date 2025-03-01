@@ -3,7 +3,7 @@
     <!--begin::Sidebar Brand-->
     <div class="sidebar-brand">
         <!--begin::Brand Link-->
-        <a href="./index.html" class="brand-link">
+        <a href="{{route('dashboard')}}" class="brand-link">
             <!--begin::Brand Image-->
             <img src="{{asset('img/logo-tiendaa.png')}}" alt="Don Pepe Logo"
                 class="brand-image opacity-85 shadow" />
@@ -22,14 +22,15 @@
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu"
                 data-accordion="false">
                 <li class="nav-item">
-                    <a href="./generate/theme.html" class="nav-link">
+                    <a href="" class="nav-link">
                         <i class="nav-icon bi bi-cart"></i> 
 
                         <p>Ventas</p>
                     </a>
                 </li>
+                @can('categoria-activar')                    
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('categorias.index')}}" class="nav-link">
                         <i class="nav-icon bi bi-pencil-square"></i>
                         <p>
                             Categorias
@@ -38,8 +39,9 @@
                     </a>
                     
                 </li>
+                @endcan 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('productos.index')}}" class="nav-link">
                         <i class="nav-icon bi bi-pencil-square"></i>
                         <p>
                             Productos
@@ -49,7 +51,7 @@
                     
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="" class="nav-link">
                         <i class="nav-icon bi bi-person"></i>
                         <p>
                             Usuarios
@@ -59,7 +61,7 @@
                     
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="" class="nav-link">
                         <i class="nav-icon bi bi-clipboard-fill"></i>
                         <p>
                             Reportes

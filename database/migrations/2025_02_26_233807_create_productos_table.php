@@ -15,7 +15,7 @@ return new class extends Migration
             $table->smallIncrements('id');
             $table->string('codigo', 64);
             $table->string('nombre', 100)->unique();
-            $table->decimal('price', 10, 2);
+            $table->decimal('precio', 10, 2);
             $table->integer('stock');
 
             $table->unsignedSmallInteger('categoria_id');
