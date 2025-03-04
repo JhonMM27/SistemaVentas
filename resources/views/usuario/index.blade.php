@@ -28,64 +28,92 @@
                             </div>
                             <div class="d-flex align-items-star cold-md-12">
 
-                                <form action="{{ route('.index') }}" method="GET" class="mb-3 mr-2">
+                                <form action="{{ route('usuarios.index') }}" method="GET" class="mb-3 mr-2">
                                     <div class="input-group">
-                                        <input type="text" name="texto" class="form-control" value="{{ $texto }}"
-                                            placeholder="Ingrese Texto a Buscar">
+                                        <input type="text" name="texto" class="form-control"
+                                            value="{{ $texto }}" placeholder="Ingrese Texto a Buscar">
                                         <div class="input-group-append ms-1.5">
                                             <button class="btn btn-secondary" type="submit"><i
                                                     class="fas fa-search"></i>Buscar</button>
                                         </div>
                                 </form>
                             </div>
-                            
-                            <div class="ms-2">
-                                <button class="btn btn-primary ml-2" data-bs-toggle="modal"
-                                data-bs-target="#modal-Nuevo">Nuevo</button>
-                            </div>
+                            @can('usuario-crear')
+                                <div class="ms-2">
+                                    <button class="btn btn-primary ml-2" data-bs-toggle="modal"
+                                        data-bs-target="#modal-Nuevo">Nuevo</button>
+                                </div>
+                            @endcan
                         </div>
-                        @include('producto.create')
-                        <table class="table table-bordered table-hover table-stripes ">
+                        @include('usuario.create')
+
+                        <table class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
-                                    <th>Opciones</th>
+                                    @can('usuario-activar')
+                                        <th>Opciones</th>
+                                    @endcan
                                     <th>ID</th>
                                     <th>Nombre</th>
-                                    <th>Codigo</th>
-                                    <th>Precio</th>
-                                    <th>Categoria</th>
-                                    <th>Stock</th>
+                                    <th>Email</th>
+                                    <th>Roles</th>
+                                    <th>Permisos</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if (count($registros) <= 0)
                                     <tr>
-                                        <td colspan="3">No hay Registros de lo Buscado</td>
+                                        <td colspan="6">No hay registros disponibles</td>
                                     </tr>
                                 @else
-                                    @foreach ($registros as $reg ) 
-                                    
+                                {{-- @dd($usuarios->first()); // Verifica que el primer elemento sea un objeto User --}}
+                                    @foreach ($registros as $reg)
                                         <tr class="align-middle">
+                                            @can('usuario-activar')
                                             <td>
+                                                {{-- <button class="btn btn-secondary btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#modal-editar-{{ $reg->id }}">&#9998;</button> --}}
+                                                <a href="{{route('usuarios.edit',$reg->id)}}" class="btn btn-secondary btn-sm">&#9998</a>
                                                 <button class="btn btn-secondary btn-sm" data-bs-toggle="modal"
-                                                    data-bs-target="#modal-editar-{{ $reg->id }}">&#9998</button>
-                                                {{-- <a href="{{route('categorias.edit',$reg->id)}}" class="btn btn-secondary btm-sm">&#9998;</a> --}}
-                                                <button class="btn btn-secondary btn-sm" data-bs-toggle="modal"
-                                                    data-bs-target="#modal-eliminar-{{ $reg->id }}">&#128465;</button>
+                                                data-bs-target="#modal-eliminar-{{ $reg->id }}">&#128465;</button>
                                             </td>
+                                            @endcan
+                                            {{-- @include('usuario.edit') --}}
                                             <td>{{ $reg->id }}</td>
-                                            <td>{{ $reg->nombre }}</td>
-                                            <td>{{ $reg->codigo }}</td>
-                                            <td>{{ $reg->precio }}</td>
-                                            <td>{{ $reg->categoria->nombre }}</td>
-                                            <td>{{ $reg->stock }}</td>
+                                            <td>{{ $reg->name }}</td>
+                                            <td>{{ $reg->email }}</td>
+                                            <td>
+                                                @foreach ($reg->getRoleNames() as $role)
+                                                    {{ $role }}
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                <!-- Botón dentro de la tabla para mostrar el modal -->
+                                                @php
+                                                    $permisos = $reg->getAllPermissions()->pluck('name')->toArray();
+                                                    $permisosMostrados = array_slice($permisos, 0, 3); // Muestra solo 3 permisos
+                                                @endphp
+
+                                                @foreach ($permisosMostrados as $permiso)
+                                                    <span class="badge bg-secondary p-2 fs-6">{{ $permiso }}</span>
+                                                @endforeach
+
+                                                @if (count($permisos) > 3)
+                                                    <!-- Botón estilizado para abrir el modal -->
+                                                    <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                                                        data-bs-target="#modalPermisos-{{ $reg->id }}">
+                                                        Ver más <i class="fas fa-eye"></i>
+                                                    </button>
+                                                @endif
+                                            </td>
                                         </tr>
-                                        @include('producto.edit')
-                                        @include('producto.delete')
+                                        @include('usuario.permisos')
+                                        @include('usuario.delete')
                                     @endforeach
                                 @endif
                             </tbody>
                         </table>
+
                     </div>
                     <div class="card-footer clearfix table-responsive">
                         {{ $registros->appends(['texto' => $texto]) }}
@@ -95,5 +123,4 @@
         </div>
     </div>
     </div>
-    {{-- @include('categoria.create') --}}
 @endsection

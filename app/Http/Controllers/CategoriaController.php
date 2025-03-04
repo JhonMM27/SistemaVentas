@@ -5,23 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-
+use Spatie\Permission\Middleware\RoleMiddleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
+use Illuminate\Routing\Middleware;
 class CategoriaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+
+    // public static function middleware(): array
+    // {
+    //     return [
+    //         new Middleware(PermissionMiddleware::using('categoria-activar'), only: ['index']),
+    //         new Middleware(PermissionMiddleware::using('categoria-activar'), only: ['index']),
+    //         new Middleware(PermissionMiddleware::using('categoria-activar'), only: ['index']),
+    //         new Middleware(PermissionMiddleware::using('categoria-activar'), only: ['index']),
+    //     ];
+    // }
+
     public function index(Request $request)
     {
-        if (Auth::user()->role === 'Vendedor') {
-            return redirect()->back()->with('error', 'Acceso denegado.');        }
-    
-        // $categorias = Categoria::all();
-        // return view('categorias.index', compact('categorias'));
-
-
-
+        
         $texto = $request->get('texto');
 
         $registros = Categoria::where('nombre','LIKE','%'.$texto.'%')->orWhere('id','LIKE','%'.$texto.'%')->orderBy('id','desc')->paginate(10);

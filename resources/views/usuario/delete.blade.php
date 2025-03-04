@@ -5,22 +5,22 @@
             <!-- Encabezado del modal -->
             <div class="modal-header bg-danger text-white">
                 <h5 class="modal-title fw-bold" id="modalEliminarLabel-{{ $reg->id }}">
-                    <i class="fas fa-trash-alt"></i> Eliminar Categoría
+                    <i class="fas fa-trash-alt"></i> Eliminar Usuario
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
 
             <!-- Formulario -->
-            <form action="{{ route('categorias.destroy', $reg->id) }}" method="POST">
+            <form action="{{ route('usuarios.destroy', $reg->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
 
                 <!-- Cuerpo del modal -->
                 <div class="modal-body text-center py-3">
                     <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
-                    <p class="fw-bold mb-1">¿Está seguro de eliminar esta categoría?</p>
+                    <p class="fw-bold mb-1">¿Está seguro de eliminar este Usuario?</p>
                     <p class="text-muted">Esta acción no se puede deshacer.</p>
-                    <h5 class="fw-bold text-danger">"{{ $reg->nombre }}"</h5>
+                    <h5 class="fw-bold text-danger">"{{ $reg->name }}"</h5>
                 </div>
 
                 <!-- Pie del modal con botones -->

@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('reportes', function (Blueprint $table) {
             $table->smallIncrements('id');
-            $table->string('tipo');
-            $table->json('datos');
+            $table->date('fecha');
+            $table->integer('total_ventas')->default(0);
+            $table->decimal('ingresos_totales', 10, 2)->default(0);
             $table->timestamps();
         });
     }

@@ -1,38 +1,38 @@
-<div class="modal fade" id="modal-editar-{{ $reg->id }}" data-bs-backdrop="static" data-bs-keyboard="false"
-    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h3 class="card-title">Editar Categoría</h3>
+<div class="modal fade" id="modal-editar-{{ $reg->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalEditarLabel-{{ $reg->id }}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg rounded-3">
+            
+            <!-- Encabezado del modal -->
+            <div class="modal-header bg-warning-subtle text-warning">
+                <h5 class="modal-title fw-bold" id="modalEditarLabel-{{ $reg->id }}">
+                    <i class="fas fa-edit"></i> Editar Categoría
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+
+            <!-- Formulario -->
+            <form action="{{ route('categorias.update', ['categoria' => $reg->id]) }}" method="POST">
+                @csrf
+                @method('PUT')
+
+                <!-- Cuerpo del modal -->
+                <div class="modal-body py-3">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="nombreCategoria-{{ $reg->id }}" name="nombre" placeholder="Ingrese Categoría" value="{{ $reg->nombre }}" required>
+                        <label for="nombreCategoria-{{ $reg->id }}" class="fw-bold">Nombre de la Categoría</label>
+                        @error('nombre')
+                            <small class="text-danger d-block mt-1">{{ $message }}</small>
+                        @enderror
+                    </div>
                 </div>
 
-                <div class="card-footer clearfix table-responsive">
-                    <form action="{{ route('categorias.update', ['categoria' => $reg->id]) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-
-                        <div class="card-body table-responsive">
-                            <div class="form-group">
-                                <label for="nombre" class="fw-bold">Nombre</label>
-                                <input type="hidden" name="id" value="{{ $reg->id }}">
-                                <input type="text" class="form-control" id="nombre"
-                                    value="{{ $reg->nombre }}" placeholder="Ingrese Categoría" name="nombre" required>
-                                @error('nombre')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="card-footer table-responsive">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            </div>
-                        </div>
-                    </form>
+                <!-- Pie del modal con botones -->
+                <div class="modal-footer d-flex justify-content-center gap-2">
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-warning px-4">Guardar</button>
                 </div>
-            </div>   
+            </form>
+
         </div>
     </div>
 </div>

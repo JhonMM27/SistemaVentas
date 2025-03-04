@@ -25,22 +25,32 @@ class UsuarioSeeder extends Seeder
             'rol-crear',
             'rol-editar',
             'rol-eliminar',
+
             'usuario-listar',
             'usuario-crear',
             'usuario-editar',
+            'usuario-eliminar',
             'usuario-activar',
+
             'categoria-listar',
             'categoria-crear',
             'categoria-editar',
             'categoria-activar',
+            'categoria-eliminar',
+
             'producto-listar',
             'producto-crear',
             'producto-editar',
             'producto-activar',
+            'producto-eliminar',
+
             'venta-crear',
             'venta-listar',
             'venta-anular',
+            'venta-eliminar',
             'venta-listar',
+            'venta-activar',
+
             'reporte-generar',
         ];
 

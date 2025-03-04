@@ -33,6 +33,7 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $registro = new Producto();
         $registro->nombre = $request->input('nombre');
         $registro->categoria_id = $request->input('categoria_id');
@@ -66,13 +67,7 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $registro = Producto::findOrFail($id);
-        // $registro->nombre = $request->input('nombre');
-        // $registro->categoria_id = $request->input('categoria_id');
-        // $registro->codigo = $request->input('codigo');
-        // $registro->precio = $request->input('precio');
-        // $registro->stock = $request->input('stock');
-        // $registro->save();
+    
 
     $registro = Producto::findOrFail($id);
 

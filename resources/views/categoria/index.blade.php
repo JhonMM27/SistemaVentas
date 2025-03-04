@@ -45,7 +45,7 @@
                             </div>
                         </div>
 
-                        <table class="table table-bordered table-hover table-stripes ">
+                        <table class="table table-bordered table-hover table-stripes">
                             <thead>
                                 <tr>
                                     <th>Opciones</th>
@@ -64,7 +64,7 @@
                                             <td>
                                                 <button class="btn btn-secondary btn-sm" data-bs-toggle="modal"
                                                     data-bs-target="#modal-editar-{{ $reg->id }}">&#9998</button>
-                                                {{-- <a href="{{route('categorias.edit',$reg->id)}}" class="btn btn-secondary btm-sm">&#9998;</a> --}}
+                                                
                                                 <button class="btn btn-secondary btn-sm" data-bs-toggle="modal"
                                                     data-bs-target="#modal-eliminar-{{ $reg->id }}">&#128465;</button>
                                             </td>
