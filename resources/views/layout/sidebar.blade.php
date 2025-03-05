@@ -21,14 +21,17 @@
             <!--begin::Sidebar Menu-->
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu"
                 data-accordion="false">
+                @can('venta-crear')
+                    
                 <li class="nav-item">
                     <a href="{{route('ventas.index')}}" class="nav-link">
                         <i class="nav-icon bi bi-cart"></i> 
-
+                        
                         <p>Ventas</p>
                     </a>
                 </li>
-                @can('categoria-activar')                    
+                @endcan
+                @can('categoria-listar')                    
                 <li class="nav-item">
                     <a href="{{route('categorias.index')}}" class="nav-link">
                         <i class="nav-icon bi bi-pencil-square"></i>
@@ -40,6 +43,8 @@
                     
                 </li>
                 @endcan 
+                @can('producto-listar')
+                    
                 <li class="nav-item">
                     <a href="{{route('productos.index')}}" class="nav-link">
                         <i class="nav-icon bi bi-pencil-square"></i>
@@ -50,6 +55,9 @@
                     </a>
                     
                 </li>
+                @endcan
+                @can('usuario-activar' )
+                    
                 <li class="nav-item">
                     <a href="{{route('usuarios.index')}}" class="nav-link">
                         <i class="nav-icon bi bi-person"></i>
@@ -60,6 +68,9 @@
                     </a>
                     
                 </li>
+                @endcan
+                @can('reporte-generar')
+                    
                 <li class="nav-item">
                     <a href="{{route('reportes.index')}}" class="nav-link">
                         <i class="nav-icon bi bi-clipboard-fill"></i>
@@ -69,6 +80,7 @@
                         </p>
                     </a>
                 </li>
+                @endcan
                 
                 
             </ul>

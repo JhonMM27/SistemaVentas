@@ -33,14 +33,7 @@ class VentaController extends Controller
 
     public function store(VentaRequest $request)
     {
-        // $request->validate([
-        //     'productos'            => 'required|array|min:1',
-        //     'productos.*'          => 'exists:productos,id',
-        //     'cantidades'           => 'required|array|min:1',
-        //     'cantidades.*'         => 'required|integer|min:1',
-        //     'metodo_pago'          => 'required|in:efectivo,tarjeta,transferencia',
-        //     'tipo_comprobante'     => 'required|in:boleta,factura',
-        // ]);
+
     
         $ventaId = null;
     

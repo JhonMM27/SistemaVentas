@@ -52,6 +52,7 @@ class UsuarioSeeder extends Seeder
             'venta-activar',
 
             'reporte-generar',
+            'comprobante-venta',
         ];
 
         foreach ($permisos as $permiso) {
@@ -67,6 +68,8 @@ class UsuarioSeeder extends Seeder
             'venta-listar',
             'venta-anular',
             'producto-listar',
+            'categoria-listar',
+            'comprobante-venta',
         ];
 
         $vendedorRole = Role::firstOrCreate(['name' => 'Vendedor']);
