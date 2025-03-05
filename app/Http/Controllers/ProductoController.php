@@ -34,7 +34,7 @@ class ProductoController extends Controller
      */
     public function store(ProductoRequest $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $registro = new Producto();
         $registro->nombre = $request->input('nombre');
         $registro->categoria_id = $request->input('categoria_id');

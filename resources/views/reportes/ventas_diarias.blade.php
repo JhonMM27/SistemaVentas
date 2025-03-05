@@ -36,7 +36,7 @@
                                     @endforeach
                                 </ul>
                             </td>
-                            <td class="fw-bold">${{ number_format($venta->total, 2) }}</td>
+                            <td class="fw-bold">S/. {{ number_format($venta->total, 2) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
