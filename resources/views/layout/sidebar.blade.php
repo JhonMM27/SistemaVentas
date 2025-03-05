@@ -22,7 +22,7 @@
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu"
                 data-accordion="false">
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{route('ventas.index')}}" class="nav-link">
                         <i class="nav-icon bi bi-cart"></i> 
 
                         <p>Ventas</p>
@@ -51,7 +51,7 @@
                     
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{route('usuarios.index')}}" class="nav-link">
                         <i class="nav-icon bi bi-person"></i>
                         <p>
                             Usuarios
@@ -61,7 +61,7 @@
                     
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{route('reportes.index')}}" class="nav-link">
                         <i class="nav-icon bi bi-clipboard-fill"></i>
                         <p>
                             Reportes

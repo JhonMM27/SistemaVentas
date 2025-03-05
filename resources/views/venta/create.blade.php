@@ -9,7 +9,7 @@
             </a>
         </div>
 
-        <form action="{{ route('ventas.store') }}" method="POST" class="needs-validation" novalidate>
+        <form id="ventaForm" action="{{ route('ventas.store') }}" method="POST" class="needs-validation" novalidate>
             @csrf
 
             <!-- Detalles de Venta -->
@@ -41,6 +41,7 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                <div class="invalid-feedback"></div>
                             </div>
 
                             <div class="col-md-3">
@@ -48,6 +49,9 @@
                                 <input type="number" name="cantidades[]" id="cantidad_0" class="form-control cantidad"
                                     min="1" required oninput="verificarStock(this)">
                             </div>
+                            @error('cantidades.*')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
 
                             <div class="col-md-3">
                                 <label for="subtotal_0" class="form-label fw-bold text-muted">Subtotal</label>
@@ -74,6 +78,9 @@
                         <label for="total" class="form-label fw-bold text-muted">Total</label>
                         <input type="number" step="0.01" name="total" id="totalVenta" class="form-control" readonly>
                     </div>
+                    @error('total')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
 
                     <div class="mb-3">
                         <label for="metodo_pago" class="form-label fw-bold text-muted">Método de Pago</label>
@@ -82,6 +89,9 @@
                             <option value="tarjeta">Tarjeta</option>
                         </select>
                     </div>
+                    @error('metodo_pago')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
 
                     <div class="mb-3">
                         <label for="tipo_comprobante" class="form-label fw-bold text-muted">Tipo de Comprobante</label>
@@ -90,6 +100,9 @@
                             <option value="factura">Factura</option>
                         </select>
                     </div>
+                    @error('tipo_comprobante')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
             </div>
 
@@ -98,7 +111,75 @@
             </button>
         </form>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('ventaForm');
 
+            form.addEventListener('submit', function(e) {
+                e.preventDefault(); // Evitar el envío tradicional del formulario
+
+                fetch(form.action, {
+                        method: form.method,
+                        body: new FormData(form),
+                        headers: {
+                            'Accept': 'application/json',
+                        },
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            // Si la respuesta no es exitosa, lanzar un error con los detalles
+                            return response.json().then(err => {
+                                throw err;
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Iniciar la descarga del comprobante
+                        window.location.href = data.download_url;
+
+                        // Redirigir al índice después de la descarga
+                        setTimeout(() => {
+                            window.location.href = data.redirect_url;
+                        }, 1000); // Esperar 1 segundo antes de redirigir
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+
+                        // Mostrar errores de validación en el formulario
+                        if (error.errors) {
+                            // Limpiar errores anteriores
+                            document.querySelectorAll('.is-invalid').forEach(el => {
+                                el.classList.remove('is-invalid');
+                            });
+                            document.querySelectorAll('.invalid-feedback').forEach(el => {
+                                el.textContent = '';
+                            });
+
+                            // Mostrar nuevos errores
+                            for (const [key, messages] of Object.entries(error.errors)) {
+                                const input = document.querySelector(`[name="${key}"]`);
+                                if (input) {
+                                    // Marcar el campo como inválido
+                                    input.classList.add('is-invalid');
+
+                                    // Mostrar el mensaje de error
+                                    const errorMessage = messages.join(', ');
+                                    const errorElement = input.nextElementSibling || input.parentElement
+                                        .querySelector('.invalid-feedback');
+                                    if (errorElement) {
+                                        errorElement.textContent = errorMessage;
+                                    }
+                                }
+                            }
+                        } else {
+                            // Mostrar un mensaje genérico si no hay errores de validación
+                            alert('Ocurrió un error al procesar la venta.');
+                        }
+                    });
+            });
+        });
+    </script>
     <script>
         // Función para actualizar subtotales y total
         function actualizarTotales() {
@@ -238,6 +319,15 @@
         #agregarDetalle:hover {
             background-color: #0056b3;
             transform: scale(1.05);
+        }
+
+        .is-invalid {
+            border-color: #dc3545 !important;
+        }
+
+        .invalid-feedback {
+            color: #dc3545;
+            font-size: 0.875em;
         }
     </style>
 @endsection

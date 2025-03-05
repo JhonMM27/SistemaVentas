@@ -13,10 +13,20 @@ class CategoriaSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i=0; $i < 1000; $i++) { 
-            Categoria::create([
-                'nombre' => 'Categoría ' . $i,
-            ]);
-        }
+        $categorias = [
+            ['nombre' => 'Laptops y Computadoras'],
+            ['nombre' => 'Accesorios de Computadora'],
+            ['nombre' => 'Monitores'],
+            ['nombre' => 'Impresoras y Escáneres'],
+            ['nombre' => 'Componentes de PC'],
+            ['nombre' => 'Almacenamiento'],
+            ['nombre' => 'Redes y Conectividad'],
+            ['nombre' => 'Software'],
+            ['nombre' => 'Electrónica de Consumo'],
+            ['nombre' => 'Gaming'],
+        ];
+
+        // Insertar categorías en la base de datos
+        Categoria::insert($categorias);
     }
 }

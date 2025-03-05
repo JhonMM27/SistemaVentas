@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoriaRequest;
 use App\Models\Categoria;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
@@ -10,20 +11,6 @@ use Spatie\Permission\Middleware\PermissionMiddleware;
 use Illuminate\Routing\Middleware;
 class CategoriaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-
-
-    // public static function middleware(): array
-    // {
-    //     return [
-    //         new Middleware(PermissionMiddleware::using('categoria-activar'), only: ['index']),
-    //         new Middleware(PermissionMiddleware::using('categoria-activar'), only: ['index']),
-    //         new Middleware(PermissionMiddleware::using('categoria-activar'), only: ['index']),
-    //         new Middleware(PermissionMiddleware::using('categoria-activar'), only: ['index']),
-    //     ];
-    // }
 
     public function index(Request $request)
     {
@@ -45,9 +32,9 @@ class CategoriaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoriaRequest $request)
     {
-        // dd($request->all());
+        
         $registro = new Categoria();
         $registro->nombre = $request->input('nombre');
         $registro->save();
@@ -74,7 +61,7 @@ class CategoriaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(CategoriaRequest $request, $id)
     {
         $registro = Categoria::findOrFail($id);
         $registro->nombre = $request->input('nombre');

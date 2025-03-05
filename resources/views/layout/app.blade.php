@@ -12,7 +12,7 @@
     <meta name="description"
         content="Sistemad de gestion de ventas para la Tienda Don Pepe." />
     <meta name="keywords"
-        content="" />
+        content="Ventas, Productos, Categorias, Usuarios, Reportes" />
     <!--end::Primary Meta Tags-->
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
@@ -32,7 +32,11 @@
     <!-- apexcharts -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css"
         integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous" />
-    
+
+        <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/logo-tiendaa.png') }}">
+
+
     @stack('estilos')
 </head>
 

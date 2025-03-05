@@ -11,7 +11,7 @@
 
             <!-- Cuerpo del modal -->
             <div class="modal-body">
-                <form action="{{ route('usuarios.store') }}" method="POST">
+                <form action="{{ route('usuarios.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-md-6 mb-3">
@@ -77,3 +77,18 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("modal-Nuevo");
+
+    modal.addEventListener("show.bs.modal", function () {
+        gsap.fromTo(modal, { opacity: 0, y: -50 }, { opacity: 1, y: 0, duration: 0.5 });
+    });
+
+    modal.addEventListener("hide.bs.modal", function () {
+        gsap.to(modal, { opacity: 0, y: -50, duration: 0.5 });
+    });
+
+});
+
+</script>
